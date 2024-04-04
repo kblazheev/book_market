@@ -1,0 +1,3 @@
+select title, string_agg(authors.last_name||' '||authors.first_name||coalesce(' '||nullif(authors.middle_name, ''), ''), ', ') as authors
+from (select author_id, title from authorships inner join books on books.book_id = authorships.book_id) as tmp
+inner join authors on tmp.author_id = authors.author_id group by title;
